@@ -1,12 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/orders.dart';
 import '../screens/order_screen.dart';
-import '../widgets/no_items_cart.dart';
+import '../widgets/no_items.dart';
 import '../widgets/shopping_card_item.dart';
 import '../providers/cart.dart';
 
@@ -38,7 +36,12 @@ class CartScrenn extends StatelessWidget {
             : [],
       ),
       body: cartContainer.items.isEmpty
-          ? const NoIteamsInCart()
+          ? const NoIteams(
+              title: 'The Cart Is Empty !',
+              subtitle:
+                  'You will find a lot of interesting products on our shop',
+              icon: Icons.shopping_cart_rounded,
+            )
           : Column(
               children: [
                 Card(
@@ -72,8 +75,10 @@ class CartScrenn extends StatelessWidget {
                   child: ListView.builder(
                     itemBuilder: (context, index) => ShopingCardItem(
                       id: cartContainer.items.values.toList()[index].id,
-                      productId:
-                          cartContainer.items.values.toList()[index].product.id,
+                      productId: cartContainer.items.values
+                          .toList()[index]
+                          .product
+                          .id as String,
                       price: cartContainer.items.values
                           .toList()[index]
                           .product

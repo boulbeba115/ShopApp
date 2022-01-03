@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/screens/order_screen.dart';
+import '../screens/add_edit_product_screen.dart';
+import '../screens/order_screen.dart';
+import '../screens/user_products_screen.dart';
 import '../providers/orders.dart';
 import '../screens/cart_screen.dart';
 import '../providers/cart.dart';
@@ -28,10 +30,11 @@ class MyApp extends StatelessWidget {
         title: 'MyShop',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
+          backgroundColor: Colors.grey[200],
           colorScheme: theme.colorScheme.copyWith(
               secondary: Colors.blue.shade800,
               primary: Colors.indigo,
-              background: Colors.red),
+              background: Colors.grey[200]),
           fontFamily: 'Lato',
         ),
         home: const ProductOverviewScreen(),
@@ -40,6 +43,9 @@ class MyApp extends StatelessWidget {
               const ProductDetailScreen(),
           CartScrenn.routeName: (context) => const CartScrenn(),
           OrderScreen.routename: (context) => const OrderScreen(),
+          UserProductsScreen.routeName: (context) => const UserProductsScreen(),
+          AddEditProductScreen.routeName: (context) =>
+              const AddEditProductScreen(),
         },
       ),
     );

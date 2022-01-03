@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -31,7 +29,7 @@ class Cart with ChangeNotifier {
   void addItem(Product product, int quantity) {
     if (_items.containsKey(product.id)) {
       _items.update(
-        product.id,
+        product.id as String,
         (existantItem) => CartItem(
             id: existantItem.id,
             product: existantItem.product,
@@ -39,7 +37,7 @@ class Cart with ChangeNotifier {
       );
     } else {
       _items.putIfAbsent(
-        product.id,
+        product.id as String,
         () => CartItem(
           id: const Uuid().v1().toString(),
           product: product,
@@ -64,6 +62,23 @@ class Cart with ChangeNotifier {
 
   void clearCard() {
     _items.clear();
+    notifyListeners();
+  }
+
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
+      return;
+    }
+    if (_items[productId]!.quantity >= 1) {
+      _items.update(
+          productId,
+          (existantItem) => CartItem(
+              id: existantItem.id,
+              product: existantItem.product,
+              quantity: existantItem.quantity - 1));
+    } else {
+      _items.remove(productId);
+    }
     notifyListeners();
   }
 }

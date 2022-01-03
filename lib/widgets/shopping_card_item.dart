@@ -26,6 +26,33 @@ class ShopingCardItem extends StatelessWidget {
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text(
+              'Are you sure',
+              textAlign: TextAlign.center,
+            ),
+            content: const Text(
+              'Do you want to remove the item from the cart',
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Yes'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text(
+                  'No',
+                ),
+              ),
+            ],
+          ),
+        );
+      },
       background: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         color: Colors.red.shade700,
